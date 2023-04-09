@@ -38,15 +38,15 @@ public class UserTransactions implements ITransaction {
 		return null;
 	}
 
-	public boolean login(String dataName, String password) {
+	public User login(String dataName, String password) {
 		for (int i = 0; i < itemCount; i++) {
 			if (users[i].getName().equals(dataName) && users[i].getPassword().equals(password)) {
 				System.out.println("Başarılı giriş :)");
-				return true;
+				return users[i];
 			}
 		}
 		System.out.println("Başarısız giriş :(");
-		return false;
+		return null;
 	}
 
 	@Override

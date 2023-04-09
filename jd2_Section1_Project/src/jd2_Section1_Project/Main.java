@@ -6,12 +6,15 @@ public class Main {
 	static UserTransactions userTransaction = new UserTransactions();
 	static FilmTransactions filmTransaction = new FilmTransactions();
 	static Scanner scanner;
+	static boolean isLogin;
+	static User user;
 
 	public static void main(String[] args) {
 		scanner = new Scanner(System.in);
 		int choice = 0;
 		int transactionType = 0;
-		//exampleDatas();
+		isLogin = false;
+		// exampleDatas();
 		do {
 			printMenu();
 			System.out.print("Seçiminiz: ");
@@ -26,7 +29,9 @@ public class Main {
 					System.out.print("User password : ");
 					String password = scanner.next();
 
-					userTransaction.login(name, password);
+					user = userTransaction.login(name, password);
+					if (user != null)
+						isLogin = true;
 					System.out.println("--------------------------------");
 				}
 				break;
@@ -43,22 +48,24 @@ public class Main {
 						addUserTransaction();
 					if (choice == 3)
 						addFilmTransaction();
-				} else if (transactionType == 5) {
+				} else if (transactionType == 5 && isLogin) {
 					if (choice == 2 && userTransaction.checkItemList())
 						removeUserTransaction();
 					if (choice == 3 && filmTransaction.checkItemList())
 						removeFilmTransaction();
-				} else if (transactionType == 6) {
+				} else if (transactionType == 6 && isLogin) {
 					if (choice == 2 && userTransaction.checkItemList())
 						searchUserTransaction();
 					if (choice == 3 && filmTransaction.checkItemList())
 						searchFilmTransaction();
-				} else if (transactionType == 7) {
+				} else if (transactionType == 7 && isLogin) {
 					if (choice == 2 && userTransaction.checkItemList())
 						userTransaction.printListData();
 					if (choice == 3 && filmTransaction.checkItemList())
 						filmTransaction.printListData();
 				}
+				if (user != null)
+					user.setFilms(filmTransaction.getFilms());
 				break;
 			}
 			case -1: {
@@ -73,17 +80,24 @@ public class Main {
 
 	private static void printMenu() {
 		System.out.println("\n##### Menu #####");
-		System.out.println(" 1: Kullanıcı girişi");
-		System.out.println(" 2: Kullanıcı ile ilgili işlemler");
-		System.out.println(" 3: Film ile ilgili işlemler");
-		System.out.println("-1: Kullanıcı çıkışı");
+		if (!isLogin) {
+			System.out.println(" 1: Kullanıcı girişi");
+			System.out.println(" 2: Kullanıcı ile ilgili işlemler");
+		} else {
+			System.out.println(" 3: Film ile ilgili işlemler");
+			System.out.println("-1: Kullanıcı çıkışı");
+		}
 	}
 
 	private static void printTransactions() {
 		System.out.println("4: ekleme");
-		System.out.println("5: silme");
-		System.out.println("6: isim arama");
-		System.out.println("7: listeleme");
+		if (isLogin) {
+			System.out.println("5: silme");
+			System.out.println("6: isim arama");
+			System.out.println("7: listeleme");
+		} else {
+			System.out.println("lütfen diğer işlemler için giriş yapın.");
+		}
 	}
 
 	private static void exampleDatas() {

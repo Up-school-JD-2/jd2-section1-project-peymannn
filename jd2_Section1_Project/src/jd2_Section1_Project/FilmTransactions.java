@@ -23,6 +23,10 @@ public class FilmTransactions implements ITransaction {
 		return false;
 	}
 
+	public Film[] getFilms() {
+		return films;
+	}
+
 	private void reInitializeArray() {
 		Film[] newFilmArray = new Film[films.length + Constants.DATA_OPENING_COUNT];
 		System.arraycopy(films, 0, newFilmArray, 0, films.length);
