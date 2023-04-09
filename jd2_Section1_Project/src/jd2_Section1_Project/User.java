@@ -14,7 +14,7 @@ public class User extends Data {
 
 	@Override
 	public String toString() {
-		return "User [password=" + password + ", email=" + email + ", Id=" + getId() + ", Name=" + getName() + "]";
+		return "User [Id=" + getId() + ", Name=" + getName() + ", password=" + password + ", email=" + email +  "]";
 	}
 
 	public String getPassword() {

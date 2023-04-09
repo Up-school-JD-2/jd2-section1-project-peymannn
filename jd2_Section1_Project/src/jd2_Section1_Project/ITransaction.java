@@ -11,4 +11,6 @@ public interface ITransaction {
 	public int findIndexInArrayById(long Id);
 
 	public void printListData();
+	
+	public boolean checkItemList();
 }

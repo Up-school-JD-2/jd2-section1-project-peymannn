@@ -32,7 +32,7 @@ public class FilmTransactions implements ITransaction {
 	@Override
 	public Data searchDataByName(String dataName) {
 		for (int i = 0; i < itemCount; i++) {
-			if (films[i].getName().contains(dataName)) {
+			if (films[i].getName().equalsIgnoreCase(dataName)) {
 				return films[i];
 			}
 		}
@@ -73,4 +73,14 @@ public class FilmTransactions implements ITransaction {
 		}
 	}
 
+	@Override
+	public boolean checkItemList() {
+		if (itemCount == 0) {
+			System.out.println("--------------------------------");
+			System.out.println("hiç film yok,Lütfen film ekleyin");
+			System.out.println("--------------------------------");
+			return false;
+		}
+		return true;
+	}
 }

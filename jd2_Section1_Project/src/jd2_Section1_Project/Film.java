@@ -21,8 +21,7 @@ public class Film extends Data {
 
 	@Override
 	public String toString() {
-		return "Film [director=" + director + ", actors=" + Arrays.toString(actors) + ", movieType=" + movieType
-				+ ", description=" + description + ", releaseDate=" + releaseDate + ", Id()=" + getId() + ", Name()="
-				+ getName() + "]";
+		return "Film [Id=" + getId() + ", Name="+ getName()+", director=" + director + ", actors=" + Arrays.toString(actors) + ", movieType=" + movieType
+				+ ", description=" + description + ", releaseDate=" + releaseDate +  "]\r\n";
 	}
 }

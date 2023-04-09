@@ -30,9 +30,8 @@ public class UserTransactions implements ITransaction {
 
 	@Override
 	public Data searchDataByName(String dataName) {
-
 		for (int i = 0; i < itemCount; i++) {
-			if (users[i].getName() == dataName) {
+			if (users[i].getName().equalsIgnoreCase(dataName)) {
 				return users[i];
 			}
 		}
@@ -40,10 +39,6 @@ public class UserTransactions implements ITransaction {
 	}
 
 	public boolean login(String dataName, String password) {
-		if (itemCount == 0) {
-			System.out.println("hiç kullanıcı yok,Lütfen kullanıcı ekleyin");
-			return false;
-		}
 		for (int i = 0; i < itemCount; i++) {
 			if (users[i].getName().equals(dataName) && users[i].getPassword().equals(password)) {
 				System.out.println("Başarılı giriş :)");
@@ -86,6 +81,17 @@ public class UserTransactions implements ITransaction {
 			System.out.print(users[i]);
 			System.out.println();
 		}
+	}
+
+	@Override
+	public boolean checkItemList() {
+		if (itemCount == 0) {
+			System.out.println("--------------------------------");
+			System.out.println("hiç kullanıcı yok,Lütfen kullanıcı ekleyin");
+			System.out.println("--------------------------------");
+			return false;
+		}
+		return true;
 	}
 
 }

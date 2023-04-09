@@ -1,32 +1,34 @@
 package jd2_Section1_Project;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
 	static UserTransactions userTransaction = new UserTransactions();
 	static FilmTransactions filmTransaction = new FilmTransactions();
+	static Scanner scanner;
 
 	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
+		scanner = new Scanner(System.in);
 		int choice = 0;
 		int transactionType = 0;
-		exampleDatas();
+		//exampleDatas();
 		do {
 			printMenu();
 			System.out.print("Seçiminiz: ");
 			choice = scanner.nextInt(); // \n
 			switch (choice) {
 			case 1: {
-				System.out.println("--------------------------------");
-				System.out.print("User name : ");
-				String name = scanner.next();
+				if (userTransaction.checkItemList()) {
+					System.out.println("--------------------------------");
+					System.out.print("User name : ");
+					String name = scanner.next();
 
-				System.out.print("User password : ");
-				String password = scanner.next();
+					System.out.print("User password : ");
+					String password = scanner.next();
 
-				userTransaction.login(name, password);
-				System.out.println("--------------------------------");
+					userTransaction.login(name, password);
+					System.out.println("--------------------------------");
+				}
 				break;
 			}
 			case 2:
@@ -38,25 +40,23 @@ public class Main {
 				transactionType = scanner.nextInt();
 				if (transactionType == 4) {
 					if (choice == 2)
-						addUserTransaction(scanner);
+						addUserTransaction();
 					if (choice == 3)
-						addFilmTransaction(scanner);
-
+						addFilmTransaction();
 				} else if (transactionType == 5) {
-					if (choice == 2)
-						removeUserTransaction(scanner);
-					if (choice == 3)
-						removeFilmTransaction(scanner);
-
+					if (choice == 2 && userTransaction.checkItemList())
+						removeUserTransaction();
+					if (choice == 3 && filmTransaction.checkItemList())
+						removeFilmTransaction();
 				} else if (transactionType == 6) {
-					if (choice == 2)
-						searchUserTransaction(scanner);
-					if (choice == 3)
-						searchFilmTransaction(scanner);
+					if (choice == 2 && userTransaction.checkItemList())
+						searchUserTransaction();
+					if (choice == 3 && filmTransaction.checkItemList())
+						searchFilmTransaction();
 				} else if (transactionType == 7) {
-					if (choice == 2)
+					if (choice == 2 && userTransaction.checkItemList())
 						userTransaction.printListData();
-					if (choice == 3)
+					if (choice == 3 && filmTransaction.checkItemList())
 						filmTransaction.printListData();
 				}
 				break;
@@ -77,7 +77,6 @@ public class Main {
 		System.out.println(" 2: Kullanıcı ile ilgili işlemler");
 		System.out.println(" 3: Film ile ilgili işlemler");
 		System.out.println("-1: Kullanıcı çıkışı");
-
 	}
 
 	private static void printTransactions() {
@@ -95,7 +94,7 @@ public class Main {
 		filmTransaction.addData(film);
 	}
 
-	private static void addUserTransaction(Scanner scanner) {
+	private static void addUserTransaction() {
 		System.out.print("User ID : ");
 		long id = scanner.nextLong();
 
@@ -116,7 +115,7 @@ public class Main {
 		}
 	}
 
-	private static void removeUserTransaction(Scanner scanner) {
+	private static void removeUserTransaction() {
 		System.out.print("User ID  for remove: ");
 		long id = scanner.nextLong();
 		if (userTransaction.removeData(id)) {
@@ -127,7 +126,7 @@ public class Main {
 
 	}
 
-	private static void searchUserTransaction(Scanner scanner) {
+	private static void searchUserTransaction() {
 
 		System.out.print("User name for search: ");
 		String name = scanner.next();
@@ -135,23 +134,23 @@ public class Main {
 		if (user == null)
 			System.out.println("kullanıcı bulunamadı");
 		else
-			System.out.print(user);
+			System.out.println(user);
 		System.out.println("-------------------");
 	}
 
-	private static void searchFilmTransaction(Scanner scanner) {
+	private static void searchFilmTransaction() {
 		System.out.print("Film name for search: ");
 		String name = scanner.next();
 		Film film = (Film) filmTransaction.searchDataByName(name);
 		if (film == null)
 			System.out.println("Film bulunamadı");
 		else
-			System.out.print(film);
+			System.out.println(film);
 		System.out.println("-------------------");
 
 	}
 
-	private static void removeFilmTransaction(Scanner scanner) {
+	private static void removeFilmTransaction() {
 		System.out.print("Film ID  for remove: ");
 		long id = scanner.nextLong();
 		if (filmTransaction.removeData(id)) {
@@ -162,7 +161,7 @@ public class Main {
 
 	}
 
-	private static void addFilmTransaction(Scanner scanner) {
+	private static void addFilmTransaction() {
 		System.out.print("Film ID : ");
 		long id = scanner.nextLong();
 
