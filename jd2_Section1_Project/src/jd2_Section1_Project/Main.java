@@ -14,7 +14,7 @@ public class Main {
 		int choice = 0;
 		int transactionType = 0;
 		isLogin = false;
-		// exampleDatas();
+		 exampleDatas();
 		do {
 			printMenu();
 			System.out.print("Seçiminiz: ");
@@ -69,6 +69,7 @@ public class Main {
 				break;
 			}
 			case -1: {
+				isLogin = false;
 				System.out.println("İyi günler");
 				break;
 			}
@@ -84,6 +85,7 @@ public class Main {
 			System.out.println(" 1: Kullanıcı girişi");
 			System.out.println(" 2: Kullanıcı ile ilgili işlemler");
 		} else {
+			System.out.println(" 2: Kullanıcı ile ilgili işlemler");
 			System.out.println(" 3: Film ile ilgili işlemler");
 			System.out.println("-1: Kullanıcı çıkışı");
 		}
